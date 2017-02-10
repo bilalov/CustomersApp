@@ -1,0 +1,96 @@
+﻿@model IEnumerable<CustomersApp.Models.Customer>
+
+@{
+    ViewBag.Title = "Управление клиентами";
+}
+
+<h2>Управление клиентами</h2>
+
+<p>
+    @Html.ActionLink("Добавить клиента", "Create")
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateCreate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Payment)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var customer in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => customer.Name)
+            </td>
+            <td>
+                @customer.DateCreate.ToString("d")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => customer.Payment)
+            </td>
+            <td>
+                <a href="@Url.Action("Edit", "Customers", new {id = customer.Id})">
+                    Редактировать
+                </a>
+            </td>
+            <td>
+                <div class="actions">
+                    <a href="#" class="js-remove-customer" data-customer-id="@customer.Id">
+                        Удалить
+                    </a>
+                </div>
+            </td>
+        </tr>
+    }
+
+</table>
+@section scripts
+{
+    <script>
+        $(document).ready(function() {
+            $(".js-remove-customer").click(function(e) {
+                var link = $(e.target);
+
+                bootbox.dialog({
+                    message: "Удалить клиента?",
+                    title: "Confirm",
+                    buttons: {
+                        no: {
+                            label: "Нет",
+                            className: "btn-default",
+                            callback: function() {
+                                bootbox.hideAll();
+                            }
+                        },
+                        yes: {
+                            label: "Да",
+                            className: "btn-danger",
+                            callback: function() {
+                                $.ajax({
+                                        url: "/api/customers/" + link.attr("data-customer-id"),
+                                        method: "DELETE"
+                                    })
+                                    .done(function() {
+                                        link.parents("tr").fadeOut(function() {
+                                            $(this).remove();
+                                        });
+                                    })
+                                    .fail(function() {
+                                        alert("Ошибка при выполнении операции");
+                                    });
+                            }
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+}

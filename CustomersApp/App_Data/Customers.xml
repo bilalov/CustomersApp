@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Customers maxId="4">
+  <Customer>
+    <Id>1</Id>
+    <Name>ПермьЭнерго</Name>
+    <DateCreate>2017-01-04T02:08:58.5114514+05:00</DateCreate>
+    <Payment>12200</Payment>
+  </Customer>
+  <Customer>
+    <Id>2</Id>
+    <Name>ПГНИУ</Name>
+    <DateCreate>2017-01-04T02:34:47.0140176+05:00</DateCreate>
+    <Payment>12500</Payment>
+  </Customer>
+  <Customer>
+    <Id>3</Id>
+    <Name>ПермьКомпания</Name>
+    <DateCreate>2017-01-04T19:01:46.2143347+05:00</DateCreate>
+    <Payment>22200</Payment>
+  </Customer>
+</Customers>
